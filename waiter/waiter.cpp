@@ -1,4 +1,5 @@
 #include <string>
+#include "pthread.h"
 #include "stdlib.h"
 
 #include "../includes/waiter.h"
@@ -18,5 +19,6 @@ int Waiter::getNext(ORDER &anOrder){
 }
 
 void Waiter::beWaiter() {
+
 }
 

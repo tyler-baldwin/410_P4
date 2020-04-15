@@ -86,7 +86,10 @@ void audit_results() {
 
 int main()
 {
-	//TODO your code here
+
+	doWaiter(1,"in1.txt"");
+	doBaker(2);
+	audit_results();
 	return SUCCESS;
 }
 

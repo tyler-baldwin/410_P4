@@ -29,7 +29,8 @@ File_IO::~File_IO()
 {
 }
 
-
+//pulls in line from file, splits it into order number
+	//and number of donuts
 int File_IO::processData(std::ifstream &file) {
 	std::string line;
 	std::string token;
@@ -64,7 +65,11 @@ int File_IO::processData(std::ifstream &file) {
 
 	return SUCCESS;
 }
-
+//allthe functions available for use
+	//attempt to open file 'filename' to read, parse its rows
+	//into ORDER structs and add these structs to a vector
+	//sort by order_number
+	//returns SUCCESS if all goes well or COULD_NOT_OPEN_FILE
 int File_IO::loadData() {
 	myOrders.clear();
 
