@@ -36,6 +36,8 @@ vector<ORDER> order_out_Vector;
 
 //used to make PRINT statements work properly
 mutex printMutex;
+vector<thread> threads;
+
 
 //*************************************************
 //runs waiter until orders all read and placed
@@ -84,12 +86,78 @@ void audit_results() {
 	PRINT2("Total orders filled = ", total_orders);
 }
 
-int main()
-{
-
-	doWaiter(1,"in1.txt"");
-	doBaker(2);
+void runThreads() {
+	for (auto &t : threads) {
+		t.join();
+	}
+	threads.clear();
 	audit_results();
+	order_out_Vector.clear();
+	PRINT1(endl);
+}
+
+void oneBakerTests() {
+	PRINT1("TESTING WITH ONE WAITER AND ONE BAKER");
+	for (int i = 1; i <= 3; i++) {
+		PRINT2("INPUT ", i);
+		string s = "in";
+		string fn = s + to_string(i);
+		s = ".txt";
+		fn += s;
+		threads.push_back(thread(doWaiter, 0+i, fn));
+		threads.push_back(thread(doBaker, 0+i));
+		runThreads();
+	}
+}
+
+void twoBakersTests() {
+	PRINT1("TESTING WITH ONE WAITER AND TWO BAKERS");
+	for (int i = 1; i <= 3; i++) {
+		PRINT2("INPUT ", i);
+		string s = "in";
+		string fn = s + to_string(i);
+		s = ".txt";
+		fn += s;
+		threads.push_back(thread(doWaiter, 3+i, fn));
+		threads.push_back(thread(doBaker, 3+i));
+		threads.push_back(thread(doBaker, 6+i));
+		runThreads();
+	}
+}
+
+void fiveBakersTests() {
+	PRINT1("TESTING WITH ONE WAITER AND FIVE BAKERS");
+	for (int i = 1; i <= 3; i++) {
+		PRINT2("INPUT ", i);
+		string s = "in";
+		string fn = s + to_string(i);
+		s = ".txt";
+		fn += s;
+		threads.push_back(thread(doWaiter, 6+i, fn));
+		threads.push_back(thread(doBaker, 9+i));
+		threads.push_back(thread(doBaker, 12+i));
+		threads.push_back(thread(doBaker, 15+i));
+		threads.push_back(thread(doBaker, 18+i));
+		threads.push_back(thread(doBaker, 21+i));
+		runThreads();
+	}
+}
+
+int main() {
+	oneBakerTests();
+	twoBakersTests();
+	fiveBakersTests();
 	return SUCCESS;
 }
+
+//int main()
+//{
+//
+//	thread waiter1(doWaiter,1,"in1.txt");
+//	thread baker1(doBaker,2);
+//	thread baker2(doBaker,3);
+//
+//	audit_results();
+//	return SUCCESS;
+//}
 

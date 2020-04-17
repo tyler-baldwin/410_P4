@@ -18,6 +18,7 @@ void Logger::clearlogfile() {
 }
 
 void Logger::log(std::string data) {
+	unique_lock<mutex> lck(m);
 	myFile.open(filename, std::fstream::app);
 	if (!myFile.is_open())
 		return;
