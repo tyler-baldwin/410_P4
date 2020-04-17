@@ -3,6 +3,7 @@ using namespace std;
 
 Logger::Logger(std::string filename) {
 	this->filename = filename;
+
 }
 
 Logger::~Logger() {
@@ -10,6 +11,7 @@ Logger::~Logger() {
 
 //open close and clear the log file
 void Logger::clearlogfile() {
+	unique_lock<mutex> lck(m);
 	myFile.open(filename, std::fstream::trunc);
 
 	//close file
@@ -25,8 +27,9 @@ void Logger::log(std::string data) {
 
 	std::string myline;
 
+	m.lock();
 	myFile << data;
-
+	m.unlock();
 	//close file
 	if (myFile.is_open())
 		myFile.close();

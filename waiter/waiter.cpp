@@ -30,7 +30,7 @@ int Waiter::getNext(ORDER &anOrder) {
 void Waiter::beWaiter() {
 	//Tyler Baldwin did this
 	ORDER ord;
-	b_WaiterIsFinished = false;
+	//b_WaiterIsFinished = false;
 
 	//TODO maybe make waiter is finished
 	while (true) {
@@ -40,8 +40,7 @@ void Waiter::beWaiter() {
 		}
 		unique_lock<mutex> lck(mutex_order_inQ);
 		order_in_Q.push(ord);
-		cout << "producer added an order" << endl;
-		//cv_order_inQ.notify_one();
+		cout << "waiter added an order"<< ord.order_number << endl;
 		cv_order_inQ.notify_all();
 	}
 	unique_lock<mutex> lck(mutex_order_inQ);

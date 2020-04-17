@@ -72,12 +72,11 @@ void Baker::beBaker() {
 			ORDER ord = order_in_Q.front();
 			bake_and_box(ord);
 			order_in_Q.pop();
-			//bake and box
 
 
 			//add order
 			order_out_Vector.push_back(ord);
-			cout << "Baker:" << id << "baked " << endl;
+			cout << "Baker:" << id << "baked order " << ord.order_number<< endl;
 		}
 	}
 }
