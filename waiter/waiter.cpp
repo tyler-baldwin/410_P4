@@ -11,12 +11,9 @@ using namespace std;
 //filename is what waiter reads in orders from
 Waiter::Waiter(int id, std::string filename) :
 		id(id), myIO(filename) {
-	//b_WaiterIsFinished = false;
 }
 
 Waiter::~Waiter() {
-	//b_WaiterIsFinished = true;
-
 }
 
 //gets next Order from file_IO
@@ -32,14 +29,12 @@ int Waiter::getNext(ORDER &anOrder) {
 //when finished exits loop and signals baker(s) using cv_order_inQ that
 //it is done using b_WaiterIsFinished
 void Waiter::beWaiter() {
-	//this_thread::sleep_for(chrono::milliseconds(2000));
 
 	//Tyler Baldwin did this
 	ORDER ord;
 	{
 	unique_lock<mutex> lck(mutex_order_inQ);
 	b_WaiterIsFinished = false;
-	//cout << "waiter is awake" << endl;
 	}
 	while (true) {
 		int result = getNext(ord);
@@ -49,8 +44,6 @@ void Waiter::beWaiter() {
 		unique_lock<mutex> lck(mutex_order_inQ);
 		order_in_Q.push(ord);
 		lck.unlock();
-		//cout << "waiter added an order" << ord.order_number << endl;
-		//this_thread::sleep_for(chrono::milliseconds(200));
 		cv_order_inQ.notify_all();
 	}
 	{
@@ -59,12 +52,5 @@ void Waiter::beWaiter() {
 		cv_order_inQ.notify_all();
 
 	}
-//	while(!order_in_Q.empty()){
-////		unique_lock<mutex> lck(mutex_order_inQ);
-////		cv_order_inQ.wait(lck);
-//	}
-//	b_WaiterIsFinished = false;
-
-
 }
 
