@@ -57,6 +57,7 @@ void doBaker(int id) {
 //prints what is in order_out_Vector
 //DO NOT CALL THIS WHEN MULTIPLE THREADS ARE ACCESSING order_out_Vector
 void audit_results() {
+
 	std::vector<ORDER>::iterator itOrder;
 	std::vector<Box>::iterator itBox;
 
@@ -152,12 +153,39 @@ int main() {
 
 //int main()
 //{
+// cout << "Starting Program" << endl;
+//
+// thread baker0(doBaker, 0);
+// thread baker1(doBaker, 1);
+// thread baker2(doBaker, 2);
+// thread baker3(doBaker, 3);
+// thread baker4(doBaker, 4);
+// thread baker5(doBaker, 5);
+// thread waiter(doWaiter, 0, "in3.txt");
+// baker0.join();
+// baker1.join();
+// baker2.join();
+// baker3.join();
+// baker4.join();
+// baker5.join();
+// waiter.join();
+// audit_results();
+//
+//}
+//int main()
+//{
 //
 //	thread waiter1(doWaiter,1,"in1.txt");
 //	thread baker1(doBaker,2);
 //	thread baker2(doBaker,3);
 //
+//	waiter1.join();
+//	baker1.join();
+//	baker2.join();
+//
+//
 //	audit_results();
 //	return SUCCESS;
 //}
+
 
